@@ -1,0 +1,32 @@
+syntax="proto3";
+
+option go_package="./pb";
+import "google/api/annotations.proto";
+
+message AuditTrailRecord{
+    string fieldID = 1;
+    string fieldValue = 2;
+    string updatedBy =3;
+    string updatedAt = 4;
+}
+
+message FetchAuditTrailRequest{
+    string service=1;
+    string databaseType=2;
+    string database=3;
+    string collection=4;
+    string documentID=5;
+    string FieldPath=6;
+}
+
+message FetchAuditTrailResponse{
+    repeated AuditTrailRecord audit =1;
+}
+
+service AuditTrail{
+    rpc FetchAuditTrail(FetchAuditTrailRequest) returns (FetchAuditTrailResponse){
+        option (google.api.http) = {
+            get: "/v1/auditrecords"
+        };
+    };
+}

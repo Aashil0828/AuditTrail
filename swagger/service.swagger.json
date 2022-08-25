@@ -1,0 +1,137 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AuditTrail"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/auditrecords": {
+      "get": {
+        "operationId": "AuditTrail_FetchAuditTrail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FetchAuditTrailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "databaseType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "database",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "collection",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "documentID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FieldPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuditTrail"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AuditTrailRecord": {
+      "type": "object",
+      "properties": {
+        "fieldID": {
+          "type": "string"
+        },
+        "fieldValue": {
+          "type": "string"
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchAuditTrailResponse": {
+      "type": "object",
+      "properties": {
+        "audit": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuditTrailRecord"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
