@@ -23,7 +23,7 @@ import (
 
 func main() {
 	godotenv.Load(".env")
-	configdao, err := db.InitializeDataAccessMongoDB(os.Getenv("DB_URL"))
+	configdao, err := db.InitializeDataAccessMongoDB(os.Getenv("MONGODB_URL"))
 
 	if err != nil {
 		log.Printf("ERROR, failed to initialize data access to the config database due to error: %v\n", err)
@@ -36,7 +36,7 @@ func main() {
 		log.Printf("ERROR, failed to get configurations due to error: %v\n", err)
 		os.Exit(1)
 	}
-	auditDao, err := db.InitializeDataAccessMongoDB(os.Getenv("DB_URL"))
+	auditDao, err := db.InitializeDataAccessMongoDB(os.Getenv("MONGODB_URL"))
 	if err != nil {
 		log.Printf("ERROR, failed to initialize data access to the Audit database due to error: %v\n", err)
 		os.Exit(1)
