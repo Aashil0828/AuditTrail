@@ -17,11 +17,13 @@ import (
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	configdao, err := db.InitializeDataAccessMongoDB("mongodb://localhost:27017/")
+	godotenv.Load(".env")
+	configdao, err := db.InitializeDataAccessMongoDB(os.Getenv("DB_URL"))
 
 	if err != nil {
 		log.Printf("ERROR, failed to initialize data access to the config database due to error: %v\n", err)
@@ -34,7 +36,7 @@ func main() {
 		log.Printf("ERROR, failed to get configurations due to error: %v\n", err)
 		os.Exit(1)
 	}
-	auditDao, err := db.InitializeDataAccessMongoDB("mongodb://localhost:27017/")
+	auditDao, err := db.InitializeDataAccessMongoDB(os.Getenv("DB_URL"))
 	if err != nil {
 		log.Printf("ERROR, failed to initialize data access to the Audit database due to error: %v\n", err)
 		os.Exit(1)

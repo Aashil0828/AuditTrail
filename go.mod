@@ -39,5 +39,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
 	github.com/jackc/pgtype v1.12.0
 	github.com/jackc/pgx/v4 v4.17.0 // indirect
+	github.com/joho/godotenv v1.4.0
 	go.mongodb.org/mongo-driver v1.10.1
 )
